@@ -140,6 +140,8 @@ Let's break it down!
 <hr />
 
 ```{R}
+
+##==== Step 1: split each line by tab and return a tabular data structure ====
 myData %>% 
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
@@ -148,10 +150,11 @@ myData %>%
       return(as.character(x))
     }
     ldply(x, str_split_fixed_2, '\t', 20)[, 1:11]
-  }) %>%  ## Step 1: split each line by tab and return a tabular data structure
+  }) %>%  
 ```
 
 ```{R}
+##==== Step 2: set column names ====
   (function(x){
     colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
                     'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
@@ -160,6 +163,7 @@ myData %>%
 ```
 
 ```{R}
+##==== Step:3 convert strings to numbers ====
   mutate(FLAG = as.numeric(FLAG),
          pos = as.numeric(POS),
          MAPQ   = as.numeric(MAPQ),
@@ -168,6 +172,7 @@ myData %>%
 ```
 
 ```{R}
+##==== Exploring  ====
   (function(x){
     filter(x, MAPQ > 30 & MAPQ < 55) %>%
       select(QNAME, RNAME, POS, MAPQ, CIGAR) %>% nrow() 
@@ -176,6 +181,7 @@ myData %>%
 ```
 
 ```{R}
+##==== Exploring ====
   (function(x){
     arrange(x, MAPQ) %>% 
       select(QNAME, RNAME, POS, MAPQ, CIGAR) %>% head() 
@@ -183,7 +189,8 @@ myData %>%
   }) %>%
 ```  
 
-```{R}  
+```{R}
+##==== Exploring ====
   (function(x){
     filter(x, MAPQ > 30) %>% 
       select(QNAME, RNAME, POS, MAPQ, CIGAR) %>%  
@@ -192,7 +199,8 @@ myData %>%
   }) %>%
 ```  
 
-```{R}  
+```{R}
+##==== Step 4: select rows that have insertions ====
   (function(x){
     select(x, CIGAR) %>% 
       laply(grep, pattern='[I]') %>% 
@@ -207,22 +215,27 @@ myData %>%
 ```
 
 ```{R}
+##==== Step 5: split CIGAR by insertion letter 'I'  ====
   llply(str_split, 'I') %>%
 ```
 
 ```{R}
+##==== Step 6: Extract data from a nested list ====
   `[[`('CIGAR') %>%
 ```
 
 ```{R}
+##==== Step 7: delete the last element ====
   llply(head, -1) %>%
 ```
 
 ```{R}
+##==== Step 8: build calculation expression by replace remaining CIGAR letters with '+' ====
   llply(gsub, pattern='[A-Z]', replacement='+') %>%
 ```
 
 ```{R}
+##==== Step 9: evalate the expression ====
   (function(x){
     eval_string = function(var1) eval(parse(text=var1))  ## define a function
     eval_string_plus = function(var2) laply(var2, eval_string) ## define another function
@@ -231,17 +244,22 @@ myData %>%
 ```
 
 ```{R}
+##==== Step 10: get positions ====
   llply(cumsum) %>%
-```
-```{R}
   (function(x){
     maxN = max(lengths(x))
-    newX = vector('numeric', length = maxN)
+    ## newX = vector('numeric', length = maxN)
     llply(x, `[`, 1:maxN)
-  }) %>% as.data.frame() %>% t() %>%
+  }) %>% 
+```  
+
+```{R} 
+##==== Step 10: Convert list to data frame ====
+  as.data.frame() %>% t() %>%
 ```
 
 ```{R}
+##==== Step 11: column names and row names ====
   (function(x){
     `colnames<-`(x, paste0('insert_', 1:ncol(x)))
   }) %>%
