@@ -67,7 +67,6 @@ myData = readLines('SRR2426363.mapped.sam')
 
 ### Do everything in one single pipe line.
 ```{R}
-## read file by lines
 myData %>% 
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
@@ -141,7 +140,6 @@ Let's break it down!
 <hr />
 
 ```{R}
-## read file by lines
 myData %>% 
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
@@ -150,7 +148,7 @@ myData %>%
       return(as.character(x))
     }
     ldply(x, str_split_fixed_2, '\t', 20)[, 1:11]
-  }) %>%
+  }) %>%  ## Step 1: split each line by tab and return a tabular data structure
 ```
 
 ```{R}
