@@ -137,7 +137,7 @@ myData %>%
 
 
 <hr />
-Break it down!
+Let's break it down!
 <hr />
 
 ```{R}
