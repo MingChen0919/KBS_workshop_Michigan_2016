@@ -42,7 +42,7 @@ SRR2426363.4217	164	176	NA	NA
 
 
 <hr />
-## Let's do it!
+<p style="font-size:20px">Let's do it!</p>
 <hr />
 
 ## Load packages
