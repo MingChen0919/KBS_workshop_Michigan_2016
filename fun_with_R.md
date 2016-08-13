@@ -5,6 +5,20 @@ SRR2426363.195	147	gi|254160123|ref|NC_012967.1|	4017900	60	228M	=	4017624	-504	
 SRR2426363.262	81	gi|254160123|ref|NC_012967.1|	3379269	37	153M	=	3379269	-153	TTGTATTACTCCTCCGACTTACTCAGCGCCGCCGACGAAGTCCAGATTCTGGCCTTCTTTCAGGGTGACGTAAGCTTTTTTCCAGTCGCTACGACGACCGATACGCTGTCCGTGACGTTTAACTTTCCCTTTAACGACCAGGGTGTTAACGAC	GFFGGFGGDGGGGGGHHEHGGHGF?GGGGGGGGEFFFHHHHHHGHHHHHHGFHHHHHHHHGHHF/GHGGFHHHHGGHGFFHGGGGGGGGFGGGFGGGGGHDDEGHGGGGGGGCHHGHGHHHHHHFHGHHHFGGGGGFGGGGCFFFCCBCCCBB	XT:A:U	NM:i:2	SM:i:37	AM:i:37	X0:i:1	X1:i:0	XM:i:2	XO:i:0	XG:i:0	MD:Z:33A101T17
 ```
 
+```
+## CIGAR
+#------  Op BAM Description
+#------  M 0 alignment match (can be a sequence match or mismatch)
+#------  I 1 insertion to the reference
+#------  D 2 deletion from the reference
+#------  N 3 skipped region from the reference
+#------  S 4 soft clipping (clipped sequences present in SEQ)
+#------  H 5 hard clipping (clipped sequences NOT present in SEQ)
+#------  P 6 padding (silent deletion from padded reference)
+#------  = 7 sequence match
+#------  X 8 sequence mismatch
+```
+
 ## Goals
 ### Positions of all insertion/deletion
 ```{R}
@@ -14,7 +28,7 @@ SRR2426363.698	169	NA	NA	NA
 SRR2426363.1034	40	NA	NA	NA
 SRR2426363.4217	164	176	NA	NA
 ```
-### Data manipulation skills
+### Data manipulation skills with __plyr/dplyr__
 ```{R}
 #---  **ply(): a*ply, l*ply, d*ply
 #---  select(): focus on a subset of variables
@@ -23,6 +37,7 @@ SRR2426363.4217	164	176	NA	NA
 #---  summarise(): reduce each group to a smaller number of summary statistics
 #---  arrange(): re-order the rows
 #---  %>%
+#---  workflow
 ```
 
 
@@ -46,26 +61,7 @@ curl -O https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_201
 myData = readLines('SRR2426363.mapped.sam')
 ```
 
-
-
-```{R}
-## Exploring
-
-
-
-## CIGAR
-#------  Op BAM Description
-#------  M 0 alignment match (can be a sequence match or mismatch)
-#------  I 1 insertion to the reference
-#------  D 2 deletion from the reference
-#------  N 3 skipped region from the reference
-#------  S 4 soft clipping (clipped sequences present in SEQ)
-#------  H 5 hard clipping (clipped sequences NOT present in SEQ)
-#------  P 6 padding (silent deletion from padded reference)
-#------  = 7 sequence match
-#------  X 8 sequence mismatch
-```
-
+### Everything in one single pipe line.
 ```{R}
 ## read file by lines
 myData %>% 
