@@ -41,6 +41,8 @@ SRR2426363.4217	164	176	NA	NA
 ```
 
 
+<hr />
+
 ## Load packages
 ```{R}
 library(plyr)
@@ -61,7 +63,7 @@ curl -O https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_201
 myData = readLines('SRR2426363.mapped.sam')
 ```
 
-### Everything in one single pipe line.
+### Do everything in one single pipe line.
 ```{R}
 ## read file by lines
 myData %>% 
