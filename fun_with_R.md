@@ -47,13 +47,8 @@ __Let's do it!__
 
 ## Load packages
 ```{R}
-packages = c('plyr', 'dplyr', 'stringr')
-for(p in packages){
-  if(try(require(p), silent = T) == FALSE)
-    install.packages(p)
-    require(p)
-}
-
+p = c('plyr', 'dplyr', 'stringr')
+install.packages(p)
 
 library(plyr)
 library(dplyr)
