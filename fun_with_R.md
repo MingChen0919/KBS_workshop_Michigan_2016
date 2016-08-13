@@ -69,6 +69,11 @@ myData = readLines('SRR2426363.mapped.sam')
 ```
 
 ### Do everything in one single pipe line.
+
+* Pipeline starts with your data
+* Input -> Output: No unnecessary objects generated
+* Pipeline is extensible
+
 ```{R}
 myData %>% 
   (function(x){
