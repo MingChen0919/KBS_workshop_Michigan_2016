@@ -3,6 +3,7 @@ library(plyr)
 library(dplyr)
 library(stringr)
 rm(list=ls())
+myData = readLines('https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_2016/master/SRR2426363.mapped.sam')
 ```
 
 ```{R}
@@ -29,7 +30,7 @@ rm(list=ls())
 
 ```{R}
 ## read file by lines
-readLines('https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_2016/master/SRR2426363.mapped.sam') %>% 
+myData %>% 
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
     str_split_fixed_2 = function(string, pattern, n){
