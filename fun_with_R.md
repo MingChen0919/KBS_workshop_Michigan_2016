@@ -4,6 +4,7 @@ library(dplyr)
 library(stringr)
 rm(list=ls())
 myData = readLines('https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_2016/master/SRR2426363.mapped.sam')
+myData = readLines('SRR2426363.mapped.sam')
 ```
 
 ```{R}
