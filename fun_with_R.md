@@ -71,7 +71,7 @@ myData = readLines('SRR2426363.mapped.sam')
 ### Do everything in one single pipe line.
 
 * Pipeline starts with your data
-* Input -> Output: No unnecessary objects generated
+* Input -> Output: No intermediate variables generated
 * Pipeline is extensible
 
 ```{R}
