@@ -138,6 +138,7 @@ myData %>%
   }) %>% as.data.frame() %>% t() %>%
   (function(x){
     `colnames<-`(x, paste0('insert_', 1:ncol(x)))
+    return(x)
   }) %>%
   `rownames<-`unlist(QNAME)
 ```  
@@ -271,5 +272,5 @@ myData %>%
   (function(x){
     `colnames<-`(x, paste0('insert_', 1:ncol(x)))
   }) %>%
-  `rownames<-`unlist(QNAME)
+  `rownames<-`(unlist(QNAME))
 ```  
