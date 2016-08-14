@@ -140,7 +140,7 @@ myData %>%
     `colnames<-`(x, paste0('insert_', 1:ncol(x)))
     return(x)
   }) %>%
-  `rownames<-`unlist(QNAME)
+  `rownames<-`(unlist(QNAME))
 ```  
 
 
