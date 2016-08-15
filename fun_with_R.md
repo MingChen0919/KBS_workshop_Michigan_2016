@@ -138,7 +138,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
   }) %>% as.data.frame() %>% t() %>%
   (function(x){
     `colnames<-`(x, paste0('insert_', 1:ncol(x)))
-    return(x)
+    ## return(x)
   }) %>%
   `rownames<-`(unlist(QNAME))
 ```  
