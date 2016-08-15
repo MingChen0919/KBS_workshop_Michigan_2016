@@ -75,7 +75,7 @@ myData = readLines('SRR2426363.mapped.sam')
 * Pipeline is extensible
 
 ```{R}
-myData %>% 
+myData %>% tail(-1) %>% ## remove the first row because it contains field names
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
     str_split_fixed_2 = function(string, pattern, n){
@@ -151,7 +151,7 @@ Let's break it down!
 ```{R}
 
 ##==== Step 1: split each line by tab and return a tabular data structure ====
-myData %>% 
+myData %>% tail(-1) %>% ## remove the first row because it contains field names
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
     str_split_fixed_2 = function(string, pattern, n){
