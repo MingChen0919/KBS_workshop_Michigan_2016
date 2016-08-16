@@ -80,7 +80,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
     return(x)
   }) %>% 
   mutate(FLAG = as.numeric(FLAG),
-         pos = as.numeric(POS),
+         POS = as.numeric(POS),
          MAPQ   = as.numeric(MAPQ),
          PNEXT  = as.numeric(PNEXT),
          TLEN   = as.numeric(TLEN)) %>%
@@ -164,7 +164,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
 ```{R}
 ##==== Step:3 convert strings to numbers ====
   mutate(FLAG = as.numeric(FLAG),
-         pos = as.numeric(POS),
+         POS = as.numeric(POS),
          MAPQ   = as.numeric(MAPQ),
          PNEXT  = as.numeric(PNEXT),
          TLEN   = as.numeric(TLEN)) %>%
