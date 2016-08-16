@@ -6,11 +6,8 @@ SRR2426363.262	81	gi|254160123|ref|NC_012967.1|	3379269	37	153M	=	3379269	-153	T
 ```
 
 
-## CIGAR
-
 ![CIGAR](https://raw.githubusercontent.com/MingChen0919/KBS_workshop_Michigan_2016/master/Screen%20Shot%202016-08-16%20at%204.08.57%20PM.png)
 
-```
 
 ## Goals
 ### Positions of all insertion/deletion
