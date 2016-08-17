@@ -12,11 +12,13 @@ SRR2426363.1034	163	gi|254160123|ref|NC_012967.1|	3912080	29	39M1I137M	=	3912459
 ## Goals
 ### Positions of all insertion/deletion
 ```{R}
-insert_1	insert_2	insert_3	insert_4
-SRR2426363.615	81	NA	NA	NA
-SRR2426363.698	169	NA	NA	NA
-SRR2426363.1034	40	NA	NA	NA
-SRR2426363.4217	164	176	NA	NA
+                Qname start_pos insert_1 insert_2 insert_3 insert_4
+1      SRR2426363.615   3356120  3356201       NA       NA       NA
+2      SRR2426363.698   4015323  4015492       NA       NA       NA
+3     SRR2426363.1034   3912080  3912120       NA       NA       NA
+4     SRR2426363.4217   4382662  4382826  4382838       NA       NA
+5     SRR2426363.4732    979022   979071       NA       NA       NA
+6     SRR2426363.6348   4017239  4017395       NA       NA       NA
 ```
 ### Data manipulation skills with __plyr/dplyr__
 ```{R}
