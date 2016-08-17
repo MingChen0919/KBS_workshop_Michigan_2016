@@ -24,7 +24,7 @@ SRR2426363.4217	164	176	NA	NA
 #---  select(): focus on a subset of variables
 #---  filter(): focus on a subset of rows
 #---  mutate(): add new columns
-#---  summarise(): reduce each group to a smaller number of summary statistics
+#---  ->> assign through parents environments
 #---  arrange(): re-order the rows
 #---  %>%
 #---  workflow
