@@ -162,7 +162,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
 ```
 
 ```{R}
-==== Step 2:  set column names =======
+##==== Step 2:  set column names =======
   (function(x){
     colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
                     'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
