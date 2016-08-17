@@ -270,8 +270,8 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
   }) %>%
 ```
 
-##==== Step 11: add starting position =======
 ```{R}
+##==== Step 11: add starting position =======
 colwise(.fun=`+`)(unlist(POS)) %>%
 ```
 
