@@ -69,17 +69,17 @@ myData = readLines('SRR2426363.mapped.sam')
 ```{R}
 myData %>% tail(-1) %>% ## remove the first row because it contains field names
   (function(x){
+    colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
+                    'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
+    return(x)
+  }) %>% 
+  (function(x){
     ## wrap the str_split_fixed() function so it returns a character
     str_split_fixed_2 = function(string, pattern, n){
       x = str_split_fixed(string, pattern, n)
       return(as.character(x))
     }
     ldply(x, str_split_fixed_2, '\t', 20)[, 1:11]
-  }) %>% 
-  (function(x){
-    colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
-                    'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
-    return(x)
   }) %>% 
   mutate(FLAG = as.numeric(FLAG),
          POS = as.numeric(POS),
@@ -142,8 +142,18 @@ Let's break it down!
 
 ```{R}
 
-##==== Step 1: split each line by tab and return a tabular data structure ====
+##==== Step 1:  ====
 myData %>% tail(-1) %>% ## remove the first row because it contains field names
+  (function(x){ ## set column names ====
+    colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
+                    'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
+    return(x)
+  }) %>%
+ 
+```
+
+```{R}
+==== Step 2: split each line by tab and return a tabular data structure ===
   (function(x){
     ## wrap the str_split_fixed() function so it returns a character
     str_split_fixed_2 = function(string, pattern, n){
@@ -151,16 +161,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
       return(as.character(x))
     }
     ldply(x, str_split_fixed_2, '\t', 20)[, 1:11]
-  }) %>%  
-```
-
-```{R}
-##==== Step 2: set column names ====
-  (function(x){
-    colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
-                    'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
-    return(x)
-  }) %>%
+  }) %>% 
 ```
 
 ```{R}
