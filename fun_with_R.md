@@ -162,11 +162,12 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
 
 ```{R}
 ==== Step 2:  set column names =======
-  (function(x){ 
+  (function(x){
     colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
                     'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
+    rownames(x) = paste0('seq', 1:nrow(x))
     return(x)
-  }) %>%
+  }) %>% 
 ```
 
 ```{R}
@@ -184,7 +185,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
     filter(x, MAPQ > 30 & MAPQ < 55) %>%
       select(QNAME, RNAME, POS, MAPQ, CIGAR) %>% nrow() 
     return(x)
-  }) %>%
+  }) %>% 
 ```
 
 ```{R}
@@ -203,7 +204,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
       select(QNAME, RNAME, POS, MAPQ, CIGAR) %>%  
       arrange(POS, MAPQ) %>% head() 
     return(x)
-  }) %>%
+  }) %>% 
 ```  
 
 ```{R}
@@ -216,6 +217,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
         x ->> df_with_Insertion
         select(x, CIGAR) ->> CIGAR_with_Insertion
         select(x, QNAME) ->> QNAME 
+        select(x, POS) ->> POS
         return(select(x, CIGAR))
       })
   }) %>%
@@ -243,7 +245,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
 
 ```{R}
 ##==== Step 9: evalate the expression ====
-  (function(x){
+ (function(x){
     eval_string = function(var1) eval(parse(text=var1))  ## define a function
     eval_string_plus = function(var2) laply(var2, eval_string) ## define another function
     llply(x, eval_string_plus)
@@ -252,23 +254,29 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
 
 ```{R}
 ##==== Step 10: get positions ====
-  llply(cumsum) %>%
+ llply(cumsum) %>%
   (function(x){
     maxN = max(lengths(x))
-    ## newX = vector('numeric', length = maxN)
-    llply(x, `[`, 1:maxN)
+    newX = vector('numeric', length = maxN)
+    ldply(x, `[`, 1:maxN)
   }) %>% 
 ```  
 
 ```{R} 
-##==== Step 10: Convert list to data frame ====
-  as.data.frame() %>% t() %>%
+##==== Step 10: column names and row names ====
+  (function(x){
+    `colnames<-`(x, paste0('insert_', 1:ncol(x)))
+    ## return(x)
+  }) %>%
+```
+
+##==== Step 11: add starting position =======
+```{R}
+colwise(.fun=`+`)(unlist(POS)) %>%
 ```
 
 ```{R}
-##==== Step 11: column names and row names ====
-  (function(x){
-    `colnames<-`(x, paste0('insert_', 1:ncol(x)))
-  }) %>%
-  `rownames<-`(unlist(QNAME))
+##==== Step 11: restructure the data frame to get final results ====
+  mutate(Qname = unlist(QNAME), start_pos = unlist(POS)) %>%
+  `[`(c('Qname', 'start_pos', 'insert_1', 'insert_2', 'insert_3', 'insert_4'))
 ```  
