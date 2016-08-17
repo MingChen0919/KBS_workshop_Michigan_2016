@@ -27,6 +27,7 @@ SRR2426363.1034	163	gi|254160123|ref|NC_012967.1|	3912080	29	39M1I137M	=	3912459
 #---  filter(): focus on a subset of rows
 #---  mutate(): add new columns
 #---  arrange(): re-order the rows
+#---  colwise(): functional programming example
 #---  [[: subsetting
 #---  ->: right assignment operator
 #---  ->>: assign through parents environments
