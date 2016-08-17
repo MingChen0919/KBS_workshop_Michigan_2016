@@ -79,6 +79,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
   (function(x){
     colnames(x) = c('QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ',
                     'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL')
+    rownames(x) = paste0('seq', 1:nrow(x))
     return(x)
   }) %>% 
   mutate(FLAG = as.numeric(FLAG),
@@ -110,6 +111,7 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
         x ->> df_with_Insertion
         select(x, CIGAR) ->> CIGAR_with_Insertion
         select(x, QNAME) ->> QNAME 
+        select(x, POS) ->> POS
         return(select(x, CIGAR))
       })
   }) %>% 
@@ -126,13 +128,15 @@ myData %>% tail(-1) %>% ## remove the first row because it contains field names
   (function(x){
     maxN = max(lengths(x))
     newX = vector('numeric', length = maxN)
-    llply(x, `[`, 1:maxN)
-  }) %>% as.data.frame() %>% t() %>%
+    ldply(x, `[`, 1:maxN)
+  }) %>% 
   (function(x){
     `colnames<-`(x, paste0('insert_', 1:ncol(x)))
     ## return(x)
   }) %>%
-  `rownames<-`(unlist(QNAME))
+  colwise(.fun=`+`)(unlist(POS)) %>%
+  mutate(Qname = unlist(QNAME), start_pos = unlist(POS)) %>%
+  `[`(c('Qname', 'start_pos', 'insert_1', 'insert_2', 'insert_3', 'insert_4'))
 ```  
 
 
